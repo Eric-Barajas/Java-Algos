@@ -94,3 +94,4 @@ class BinarySearchTree {
     // dont need count variable because the function call counts the nodes as we go back up
     // the function call holds the place of the number each time
 }
+
