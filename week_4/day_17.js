@@ -5,9 +5,9 @@
  */
 class Queue {
     constructor() {
-    this.items = [];
+        this.items = [];
     }
-  
+
     /**
      * Adds a new given item to the back of this queue.
      * - Time: O(1) constant.
@@ -18,7 +18,7 @@ class Queue {
     enqueue(item) {
         return this.items.push(3)
     }
-  
+
     /**
      * Removes and returns the first item of this queue.
      * - Time: O(n) linear, due to having to shift all the remaining items to
@@ -30,7 +30,7 @@ class Queue {
         let firstElement = this.items.shift()
         return firstElement
     }
-  
+
     /**
      * Retrieves the first item without removing it.
      * - Time: O(1) constant.
@@ -40,7 +40,7 @@ class Queue {
     front() {
         return this.items[0]
     }
-  
+
     /**
      * Returns whether or not this queue is empty.
      * - Time: O(1) constant.
@@ -50,8 +50,8 @@ class Queue {
     isEmpty() {
         return this.items.length === 0
     }
-    
-  
+
+
     /**
      * Retrieves the size of this queue.
      * - Time: O(1) constant.
@@ -71,7 +71,7 @@ class Queue {
      * 
      * @returns {boolean} The queue is a palindrome
      */
-    isPalindrome(){
+    isPalindrome() {
         let flag = true;
         let thisStack = new Stack;
         for (let i = 0; i < this.size(); i++) {
@@ -90,73 +90,57 @@ class Queue {
         return flag;
     }
 
-}
 
 
-
-// QUEUE CLASS EXTRA CHALLENGE
-class QueueNode{
-    constructor(data){
-        this.data = data;
-        this.next = null;
-    }
-}
-
-class LinkedQueue{
-    constructor(){
-        this.head = null;
-        this.tail = null;
-    }
-    enqueue(data){
-        let newQueueNode = new QueueNode(data);
-        if (this.head == null) {
-            this.head = newQueueNode; 
-            this.tail = newQueueNode;
-            return this; 
+/**
+ * Determines whether the sum of the left half of the queue items is equal to
+ * the sum of the right half. Avoid indexing the queue items directly via
+ * bracket notation, use the queue methods instead for practice.
+ * Use no extra array or objects.
+ * The queue should be returned to it's original order when done.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {boolean} Whether the sum of the left and right halves is equal.
+ */
+    isSumOfHalvesEqual() {
+        let sum1 = 0;
+        let sum2 = 0;
+        if (this.isEmpty()){
+            console.log("Queue is empty");
+            return;
         }
+        for (let i=0; i<this.size(); i++) {
+            const temp = this.dequeue()
+            this.enqueue(temp);
+            if (i < this.size()/2){
+                sum1 += temp;
+            }
+            else {
+                sum2 += temp;
+            }
+        }
+        return sum1 === sum2;
         
-        this.tail.next = newQueueNode; 
-        this.tail = newQueueNode; 
-        return this; 
-    }
-
-    dequeue() {
-        if (this.head == null) {
-            return this; 
-        }
-        // storing data because if we don't it will disappear into the void 
-        let newData = this.head.data
-
-        if (this.head == this.tail) {
-            this.head = this.head.next;
-            this.tail = null;
-            return newData; 
-        }
-        
-        // moving start point to next node since we are removing first value 
-        this.head = this.head.next;
-        return newData; 
     }
 }
 
+var q1 = Queue()
 
-let test = new Queue()
-test.enqueue('a')
-test.enqueue('b')
-test.enqueue('c')
-test.enqueue('b')
-test.enqueue('a')
-console.log(test.isPalindrome()) // true
+q1.enqueue(1)
+q1.enqueue(2)
+q1.enqueue(3)
+q1.enqueue(3)
+q1.enqueue(2)
+q1.enqueue(1)
 
-// let queue1 = new Queue(); 
-// queue1.enqueue(5).enqueue(7).dequeue(); 
-// console.log(queue1);
+q1.isSumOfHalvesEqual() // true
 
-let linkedQueue1 = new LinkedQueue(); 
-linkedQueue1.enqueue(2).enqueue(4);
-console.log(linkedQueue1);
 
-console.log(linkedQueue1);
-console.log(linkedQueue1.dequeue());
+var q2 = Queue()
 
-console.log(linkedQueue1);
+q2.enqueue(5)
+q2.enqueue(2)
+q2.enqueue(1)
+q2.enqueue(1)
+
+q2.isSumOfHalvesEqual() // false

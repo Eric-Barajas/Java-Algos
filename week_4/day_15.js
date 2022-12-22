@@ -5,7 +5,7 @@
  */
 class Queue {
     constructor() {
-      this.items = [];
+        this.items = [];
     }
   
     /**
